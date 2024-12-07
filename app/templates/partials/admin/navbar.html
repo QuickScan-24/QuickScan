@@ -1,0 +1,30 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand navbar-dark" style="background-color: #272B3B;">
+  <div class="container">
+    <!-- Sidebar Toggle - Always visible -->
+    <button class="btn btn-link text-white px-2 me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='admin/images/logo.png') }}" height="75" alt="Munagasatcom Brand" />
+      <!-- QuickScan -->
+    </a>
+
+    <!-- Navbar links - Always expanded -->
+    <div class="navbar-collapse">
+
+
+      <!-- Right elements -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="{{ url_for('auth.logout') }}" class="nav-link">
+            Logout
+            <i class="fas fa-arrow-right-from-bracket text-danger ms-1"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

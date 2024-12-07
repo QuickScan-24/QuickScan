@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Scan</title>
+
+  <!-- Font Awesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/bootstrap.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/progress_bar_steps.css') }}" />
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/new-prism.css') }}" /> -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/card.min.css') }}" /> -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/switch.css') }}" /> -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/modals.css') }}" /> -->
+
+
+  <!-- Updated Favicon -->
+  <link rel="icon" href="{{ url_for('static', filename='admin/images/logo.ico') }}" />
+  <style>
+    #sidebar .nav-link {
+      transition: all 0.3s;
+    }
+
+    #sidebar .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .offcanvas {
+      width: 280px;
+    }
+
+    /* Custom styles for the toggle button */
+    .navbar .btn-link {
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      transition: background-color 0.3s;
+    }
+
+    .navbar .btn-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background-color: #f1f0f0;
+    }
+
+    .table-transparent {
+      --bs-table-bg: transparent !important;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    {% include 'partials/admin/sidenav.html' %} {% include
+        'partials/admin/navbar.html' %}
+  </header>
+
+  <main id="main-screen" class="container p-4">
+    {% block content %}{% endblock %}
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/new-prism.js') }}"></script>
+  <!-- <script type="text/javascript" src="{{ url_for('static', filename='admin/js/mdb.min.js') }}"></script> -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/jquery-3.4.1.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/popper.min.js') }}"></script>
+
+</body>
+
+</html>

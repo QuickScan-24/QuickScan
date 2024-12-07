@@ -1,0 +1,136 @@
+{% extends "layouts/layout.html" %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="p-4 mb-4">
+    <div class="row">
+      <div wire:ignore>
+        <!-- Page Title -->
+        <h2 class="fw-bold">All Files</h2>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <form action="" method="get">
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="input-group">
+            <span class="input-group-text bg-white">
+              <i class="fab fa-searchengin text-primary"></i>
+            </span>
+            <input name="search" type="search" id="search" class="form-control" placeholder="Search" aria-label="Search" value="{{search_query}}" />
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Data Table -->
+    <div class="table-responsive">
+      <table class="table table-borderless table-striped table-hover align-middle mb-0">
+        <thead class="">
+          <tr>
+            <th scope="col" class="fw-bold">ID</th>
+            <th scope="col" class="fw-bold">File Name</th>
+            <th scope="col" class="fw-bold">File Size (KB)</th>
+            <th scope="col" class="fw-bold">Upload Time</th>
+            <th scope="col" class="fw-bold">Status</th>
+            <th scope="col" class="fw-bold">Score</th>
+            <th scope="col" class="fw-bold">Control</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if reports %}
+          {% for report in reports %}
+          <tr>
+            <td>
+              {{ report.report_id }}
+            </td>
+            <td>
+              {{ report.file_name }}
+            </td>
+            <td>
+              {{ (report.file_size / 1024) | round(2) }}
+            </td>
+            <td>
+              {{ report.upload_time.strftime("%Y-%m-%d %H:%M:%S") }}
+            </td>
+            <td>
+              <span class="badge bg-{{ 'warning' if report.status == 'Processing' else 'info' }}">
+                {{ report.status }}
+              </span>
+            </td>
+            <td>
+              {{ report.score }}
+            </td>
+            <td>
+
+              {% if report.status == 'Processing' %}
+              <div class="p-2">
+                <div class="spinner-border text-primary spinner-border-md" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+
+              {% else %}
+
+              <div class="btn-group" role="group" aria-label="File controls">
+                <a href="{{url_for('report_details_file_information', report_id=report.report_id)}}" class="btn btn-info btn-sm m-2" data-bs-toggle="tooltip" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </a>
+                <form action="/flag" method="post">
+                  <input type="hidden" name="id" value="{{ report.report_id }}">
+                  <button type="submit" class="btn btn-warning btn-sm m-2" data-bs-toggle="tooltip" title="Flag File">
+                    <i class="fas fa-flag"></i>
+                  </button>
+                </form>
+                <form action="/delete" method="post">
+                  <input type="hidden" name="id" value="{{ report.report_id }}">
+                  <button type="submit" class="btn btn-danger btn-sm m-2" data-bs-toggle="tooltip" title="Delete File">
+                    <i class="fas fa-trash-can"></i>
+                  </button>
+                </form>
+              </div>
+
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="7" class="text-center py-4 text-muted">
+              <i class="fas fa-database me-2"></i>
+              There is no data yet!
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination and Page Size Selection -->
+    <div class="d-flex justify-content-end align-items-center mt-4">
+
+      <div class="col-auto">
+        <select class="form-select" aria-label="Items per page">
+          <option value="5">5 items</option>
+          <option value="10" selected>10 items</option>
+          <option value="25">25 items</option>
+          <option value="50">50 items</option>
+          <option value="100">100 items</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  });
+</script>
+
+{% endblock %}

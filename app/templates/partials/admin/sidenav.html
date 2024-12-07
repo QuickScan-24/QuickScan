@@ -1,0 +1,51 @@
+<!-- Off-canvas Sidebar -->
+<div class="offcanvas offcanvas-start text-white" tabindex="-1" id="sidebar" style="background-color: #101422;">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <!-- Logo -->
+  <div class="d-flex justify-content-center py-4">
+    <a href="{{ url_for('home') }}">
+      <img id="SafteyKSAMC-Logo" src="{{ url_for('static', filename='admin/images/logo.png') }}" alt="SafteyKSAMC-Logo" width="200" class="img-fluid" draggable="false">
+    </a>
+  </div>
+
+  <!-- Sidebar Content -->
+  <div class="offcanvas-body p-4">
+    <div class="nav flex-column">
+      <a class="nav-link text-white d-flex align-items-center p-3 {% if request.endpoint == 'home' %}active{% endif %}" href="{{ url_for('home') }}">
+        <i class="fas fa-chart-area me-2"></i>
+        <span>Home</span>
+      </a>
+
+      <a class="nav-link text-white d-flex align-items-center p-3 {% if request.endpoint == 'files' %}active{% endif %}" href="{{ url_for('files') }}">
+        <i class="fas fa-folder me-2 text-warning"></i>
+        <span>All Files</span>
+      </a>
+
+      <a class="nav-link text-white d-flex align-items-center p-3 {% if request.endpoint == 'flag' %}active{% endif %}" href="{{ url_for('flag') }}">
+        <i class="fas fa-flag me-2 text-danger"></i>
+        <span>Flag</span>
+      </a>
+
+      <a class="nav-link text-white d-flex align-items-center p-3 {% if request.endpoint == 'help' %}active{% endif %}" href="{{ url_for('help') }}">
+        <i class="far fa-circle-question me-2 text-danger"></i>
+        <span>Help</span>
+      </a>
+
+      <a class="nav-link text-white d-flex align-items-center p-3 {% if request.endpoint == 'info' %}active{% endif %}" href="{{ url_for('info') }}">
+        <i class="fas fa-circle-info me-2 text-info"></i>
+        <span>Info</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .nav-link.active {
+    background-color: #343a40;
+    color: #f8f9fa;
+    border-radius: 15px;
+  }
+</style>

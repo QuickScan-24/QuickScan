@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickScan - Auth</title>
+
+  <link rel="icon" href="{{ url_for('static', filename='admin/images/logo.webp') }}" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/core.min.css') }}" />
+
+  <style>
+    .bg-image-vertical {
+      position: relative;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: auto 100%;
+    }
+
+    @media (min-width: 1025px) {
+      .h-custom-2 {
+        height: 100%;
+      }
+    }
+
+    .form-outline .form-control:focus~.form-label {
+      color: rgb(1, 161, 127);
+    }
+
+    .form-outline .form-control:focus~.form-notch .form-notch-middle {
+      border-color: rgb(1, 161, 127);
+      box-shadow: 0 1px 0 0 rgb(1, 161, 127);
+      border-top: 1px solid rgba(0, 0, 0, 0);
+    }
+
+    .form-outline .form-control:focus~.form-notch .form-notch-leading {
+      border-color: rgb(1, 161, 127);
+      box-shadow: -1px 0 0 0 rgb(1, 161, 127), 0 1px 0 0 rgb(1, 161, 127),
+        0 -1px 0 0 rgb(1, 161, 127);
+    }
+
+    .form-outline .form-control:focus~.form-notch .form-notch-trailing,
+    .form-outline .form-control.active~.form-notch .form-notch-trailing {
+      border-left: none;
+    }
+
+    .form-outline .form-control:focus~.form-notch .form-notch-trailing {
+      border-color: rgb(1, 161, 127);
+      box-shadow: 1px 0 0 0 rgb(1, 161, 127), 0 -1px 0 0 rgb(1, 161, 127),
+        0 1px 0 0 rgb(1, 161, 127);
+    }
+  </style>
+</head>
+
+<body>
+  <section class="vh-100">
+    <div class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+
+        <!-- Content Column -->
+        <div class="col-md-6 d-flex justify-content-center">
+          <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px;">
+            <!-- Limit max-width -->
+            <div class="text-center">
+              <h4 class="mt-1 mb-5 pb-1 fw-bold">
+                {% if request.endpoint == 'auth.login' %}
+                Login
+                {% elif request.endpoint in ['auth.register', 'auth.forgot_password'] %}
+                {% if request.endpoint == 'auth.register' %}
+                Register
+                {% else %}
+                Forgot Password
+                {% endif %}
+                {% endif %}
+              </h4>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              {% for message in messages %}
+              <div>
+                {{ message }}
+              </div>
+              {% endfor %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- Dynamic Content Block -->
+            <div class="d-flex justify-content-center">
+              {% block content %}{% endblock %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Column -->
+        <div class="col-md-6 d-none d-md-block">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <img src="{{ url_for('static', filename='admin/images/logo-dark.png') }}" alt="Login image" class="img-fluid" style="max-height: 75%; max-width: 500px; object-fit: contain;">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/core.min.js') }}"></script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/jquery-3.4.1.min.js') }}"></script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/popper.min.js') }}"></script>
+</body>
+
+</html>

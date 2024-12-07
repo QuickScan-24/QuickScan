@@ -1,0 +1,124 @@
+{% extends "layouts/layout.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Progress bar on the left -->
+    <div class="col-md-3">
+      <div class="outer">
+        <div class="custom-progress">
+          <div class="left">
+            <div>Start</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="current">Download Report</div>
+          </div>
+          <div class="right">
+            <div>File information</div>
+            <div>General Extracted Information</div>
+            <div>Ransomware Extracted File</div>
+            <div class="current">Dynamic analysis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table and content on the right -->
+    <div class="col-md-9">
+      <h2>Dynamic Analysis</h2>
+
+      <h3 class="mt-4">PCAP File</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>file</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr></tr>
+          <tr>
+            <td> <a class="btn btn-primary" href="http://localhost:7000/api/analyses/{{report.analysis_id}}/task/{{report.task_id}}/pcap">Download PCAP</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TTPs Section -->
+      <h3 class="mt-4">TTPs</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Tactics</th>
+            <th>Reference</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ttp in ttps %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ ttp.name }}</td>
+            <td>{{ ttp.tactics }}</td>
+            <td><a href="{{ ttp.reference }}" target="_blank">Reference</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Signatures Section -->
+      <h3 class="mt-4">Signatures</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for signature in signatures %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ signature.name }}</td>
+            <td>{{ signature.short_description or "N/A" }}</td>
+            <td>{{ signature.score }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+      <!-- Screenshots Section -->
+      <h3 class="mt-4">Screenshots</h3>
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>screenshot</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for screenshot in screenshots %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+              <img width="50%" src="http://localhost:7000/api/analyses/{{report.analysis_id}}/task/{{report.task_id}}/screenshot/{{ screenshot.name }}" alt="" srcset="">
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Navigation Buttons -->
+      <div class="mt-3 text-end">
+        <a href="{{ url_for('report_details_ransomeware_extracted_features', report_id=report.report_id) }}" class="btn btn-secondary">Back</a>
+        <a href="{{ url_for('download_report', report_id=report.report_id) }}" class="btn btn-primary">Download report</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

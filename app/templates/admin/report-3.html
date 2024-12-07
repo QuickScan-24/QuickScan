@@ -1,0 +1,58 @@
+{% extends "layouts/layout.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Progress bar on the left -->
+    <div class="col-md-3">
+      <div class="outer">
+        <div class="custom-progress">
+          <div class="left">
+            <div>Start</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>Download Report</div>
+          </div>
+          <div class="right">
+            <div>File information</div>
+            <div>General Extracted File</div>
+            <div class="current">Ransomware Extracted Features</div>
+            <div class="done">Dynamic analysis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table and content on the right -->
+    <div class="col-md-9">
+      <h2>Ransomeware Extracted Features</h2>
+      <table class="table table-bordered mt-4 ">
+        <tbody>
+          <tr>
+            <th>Features</th>
+            <td>
+              {{ report.report_content }}
+            </td>
+          </tr>
+          <tr>
+            <th>Score</th>
+            <td>
+              {{ report.score }}
+            </td>
+          </tr>
+          <tr>
+            <th>Strings</th>
+            <td class="text-wrap" style="word-break: break-word;">
+              {{ report.strings }}
+            </td>
+        </tbody>
+      </table>
+      <div class="mt-3 text-end">
+        <a href="{{ url_for('report_details_general_extracted_infromation', report_id=report.report_id) }}" class="btn btn-secondary">Back</a>
+        <a href="{{ url_for('report_details_dynamic_analysis', report_id=report.report_id) }}" class="btn btn-primary">Next</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

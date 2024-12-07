@@ -1,0 +1,60 @@
+{% extends "layouts/layout.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Progress bar on the left -->
+    <div class="col-md-3">
+      <div class="outer">
+        <div class="custom-progress">
+          <div class="left">
+            <div class="current">Start</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div>Download Report</div>
+          </div>
+          <div class="right">
+            <div>File information</div>
+            <div class="current">General Extracted Information</div>
+            <div>Ransomware Extracted Features</div>
+            <div class="done">Dynamic analysis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table and content on the right -->
+    <div class="col-md-9">
+      <h2>General Extracted Information</h2>
+      <table class="table table-bordered mt-4">
+        <tbody>
+          <tr>
+            <th>Emails</th>
+            <td class="text-wrap" style="word-break: break-word;">
+              {{ extractedData.emails }}
+            </td>
+          </tr>
+          <tr>
+            <th>Phone Numbers</th>
+            <td class="text-wrap" style="word-break: break-word;">
+              {{ extractedData.phone_numbers }}
+            </td>
+            <!-- Convert bytes to KB -->
+          </tr>
+          <tr>
+            <th>Links</th>
+            <td class="text-wrap" style="word-break: break-word;">
+              {{ extractedData.urls }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-3 text-end">
+        <a href="{{ url_for('report_details_file_information', report_id=report.report_id) }}" class="btn btn-secondary">Back</a>
+        <a href="{{ url_for('report_details_ransomeware_extracted_features', report_id=report.report_id) }}" class="btn btn-primary">Next</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
